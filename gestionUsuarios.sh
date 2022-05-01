@@ -21,26 +21,26 @@ case $eleccionInfo in
 
 1)
 read -p "Nombre completo nuevo: " infoNueva
-sudo chfn -f $infoNueva ${arrayTemporal[cambInfo]}
+sudo chfn -f "$infoNueva" "${arrayTemporal[cambInfo]}"
 ;;
 2)
 read -p "Numero habitacion nueva: " infoNueva
-sudo chfn -r $infoNueva ${arrayTemporal[$cambInfo]}
+sudo chfn -r "$infoNueva" "${arrayTemporal[$cambInfo]}"
 ;;
 3)
 read -p "Telefono del trabajo nuevo: " infoNueva
-sudo chfn -w $infoNueva ${arrayTemporal[$cambInfo]}
+sudo chfn -w "$infoNueva" "${arrayTemporal[$cambInfo]}"
 ;;
 4)
 read -p "Telefono de casa nuevo: " infoNueva
-sudo chfn -h $infoNueva ${arrayTemporal[$cambInfo]}
+sudo chfn -h "$infoNueva" "${arrayTemporal[$cambInfo]}"
 ;;
 5)
 read -p "Informacion alternativa nueva: " infoNueva
-sudo chfn -o $infoNueva ${arrayTemporal[$cambInfo]}
+sudo chfn -o "$infoNueva" "${arrayTemporal[$cambInfo]}"
 ;;
 6)
-sudo chfn ${arrayTemporal[$cambInfo]}
+sudo chfn "${arrayTemporal[$cambInfo]}"
 ;;
 esac
 
@@ -62,14 +62,14 @@ case $eleccion in
 
 1)
 read -p "Diga el nombre de usuario " nombreUsu
-sudo adduser $nombreUsu
+sudo adduser "$nombreUsu"
 ;;
 2)
 mostrarNombreUsu
 
 read -p "Elije usuario al que cambiar contraseña " cambUsu
 
-sudo passwd ${arrayTemporal[$cambUsu]}
+sudo passwd "${arrayTemporal[$cambUsu]}"
 ;;
 3)
 mostrarNombreUsu
@@ -86,11 +86,17 @@ read -p "Elije el tipo de informacion que deseas cambiar
 eleccionCambioTipoInfo
 ;;
 4)
-
 mostrarNombreUsu
-
 read -p "Elige usuario que eliminar " elimUsu
-sudo deluser --remove-home ${arrayTemporal[$elimUsu]} 
+sudo deluser --remove-home "${arrayTemporal[$elimUsu]}" 
+;;
+5)
+read -p "Diga el nombre del grupo " groupName
+sudo addgroup "$groupName"
+;;
+6)
+read -p "Diga el nombre del grupo " groupName
+sudo adduser "$userName" "$groupName"
 ;;
 esac
 
