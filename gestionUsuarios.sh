@@ -15,6 +15,23 @@ function mostrarNombreUsu () {
     rm archivoTemporal.txt
 
 }
+
+function mostrarNombreGrupo(){
+
+    cut -d ":" -f 1 /etc/group > $(pwd)/archivoTemporal.txt
+
+    i=1
+
+    while read linea;
+    do
+    echo $i ".-" $linea
+    arrayTemporalGrupo[$i]="$linea";
+    ((i++));
+    done < $(pwd)/archivoTemporal.txt
+    rm archivoTemporal.txt
+
+}
+
 function eleccionCambioTipoInfo () {
 
 case $eleccionInfo in
@@ -46,7 +63,9 @@ esac
 
 }
 
-
+bucle=true
+while [ $bucle==true ]
+do
 echo "1 - Agregar un usuario al sistema
 2 - Cambiar la clave de acceso de un usuario
 3 - Editar la información personal de un usuario
@@ -95,11 +114,24 @@ read -p "Diga el nombre del grupo " groupName
 sudo addgroup "$groupName"
 ;;
 6)
-read -p "Diga el nombre del grupo " groupName
-sudo adduser "$userName" "$groupName"
+mostrarNombreUsu
+read -p "Elije el usuario al que agregar al grupo " userName
+
+mostrarNombreGrupo
+read -p "Elije el grupo al que se agregara el usuario " groupName
+
+sudo adduser "${arrayTemporal[$userName]}" "${arrayTemporalGrupo[$groupName]}"
+;;
+7)
+mostrarNombreGrupo
+read -p "Elige usuario que eliminar " elimGrupo
+sudo delgroup --remove-home "${arrayTemporalGrupo[$elimUsu]}" 
+;;
+8)
+exit
 ;;
 esac
-
+done
 
 
 
