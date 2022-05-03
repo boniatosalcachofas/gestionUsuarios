@@ -63,6 +63,12 @@ esac
 
 }
 
+function continuarOperaciones(){
+
+    read -p "Pulse intro para continuar"
+
+}
+
 bucle=true
 while [ $bucle==true ]
 do
@@ -82,6 +88,8 @@ case $eleccion in
 1)
 read -p "Diga el nombre de usuario " nombreUsu
 sudo adduser "$nombreUsu"
+
+continuarOperaciones 
 ;;
 2)
 mostrarNombreUsu
@@ -89,6 +97,8 @@ mostrarNombreUsu
 read -p "Elije usuario al que cambiar contraseña " cambUsu
 
 sudo passwd "${arrayTemporal[$cambUsu]}"
+
+continuarOperaciones 
 ;;
 3)
 mostrarNombreUsu
@@ -103,15 +113,21 @@ read -p "Elije el tipo de informacion que deseas cambiar
 " eleccionInfo
 
 eleccionCambioTipoInfo
+
+continuarOperaciones 
 ;;
 4)
 mostrarNombreUsu
 read -p "Elige usuario que eliminar " elimUsu
 sudo deluser --remove-home "${arrayTemporal[$elimUsu]}" 
+
+continuarOperaciones 
 ;;
 5)
 read -p "Diga el nombre del grupo " groupName
 sudo addgroup "$groupName"
+
+continuarOperaciones 
 ;;
 6)
 mostrarNombreUsu
@@ -121,16 +137,22 @@ mostrarNombreGrupo
 read -p "Elije el grupo al que se agregara el usuario " groupName
 
 sudo adduser "${arrayTemporal[$userName]}" "${arrayTemporalGrupo[$groupName]}"
+
+continuarOperaciones 
 ;;
 7)
 mostrarNombreGrupo
 read -p "Elige usuario que eliminar " elimGrupo
-sudo delgroup --remove-home "${arrayTemporalGrupo[$elimUsu]}" 
+echo "${arrayTemporalGrupo[$elimGrupo]}"
+sudo delgroup --remove-home "${arrayTemporalGrupo[$elimGrupo]}"
+
+continuarOperaciones 
 ;;
 8)
 exit
 ;;
 esac
+clear
 done
 
 
